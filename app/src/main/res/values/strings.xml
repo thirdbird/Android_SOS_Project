@@ -23,4 +23,6 @@
     <string name="button_contacts_add_new">Add new</string>
     <string name="button_contacts_remove">Remove</string>
     <string name="menu_contacts">Contacts</string>
+    <string name="new_group_name">Name your group</string>
+    <string name="button_create_group_save">Save group</string>
 </resources>

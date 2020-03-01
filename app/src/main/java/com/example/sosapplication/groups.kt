@@ -1,12 +1,14 @@
 package com.example.sosapplication
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +34,16 @@ class groups : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val createButton = getActivity()?.findViewById<Button>(R.id.buttonGroupsCreate)
+        createButton?.setOnClickListener{
+            val intent = Intent(getActivity(), CreateGroupActivity::class.java)
+            startActivity(intent)
         }
     }
 
