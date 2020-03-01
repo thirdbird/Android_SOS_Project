@@ -16,4 +16,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.varunest.sparkbutton.SparkButton
+        android:id="@+id/spark_button"
+        android:layout_width="match_parent"
+        android:layout_height="520dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:sparkbutton_activeImage="@mipmap/ic_sosbutton_active_foreground"
+        app:sparkbutton_iconSize="370dp"
+        app:sparkbutton_inActiveImage="@mipmap/ic_sosbutton_inactive_foreground"
+        app:sparkbutton_primaryColor="@color/primary_color"
+        app:sparkbutton_secondaryColor="@color/secondary_color" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
