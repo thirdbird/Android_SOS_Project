@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,12 +29,16 @@ class contacts : Fragment() {
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
+    private lateinit var arrayAdapter: ArrayAdapter<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onCreateView(
@@ -43,6 +49,24 @@ class contacts : Fragment() {
         return inflater.inflate(R.layout.fragment_contacts, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        arrayAdapter.notifyDataSetChanged()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        arrayAdapter = ArrayAdapter<String>(
+            context!!,
+            android.R.layout.simple_list_item_1,
+            android.R.id.text1,
+            readAllUsers()
+            //tempRepository.getAllToDos()
+        )
+        val listView = view.findViewById<ListView>(R.id.listviewContacts)
+        listView.adapter = arrayAdapter
+    }
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
@@ -76,6 +100,7 @@ class contacts : Fragment() {
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
+
     }
 
     companion object {

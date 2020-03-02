@@ -14,17 +14,42 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.widget.Toast
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.View
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_contacts.*
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DataSnapshot
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.util.Log
+import android.widget.*
+import androidx.annotation.NonNull
+import androidx.fragment.app.FragmentActivity
+
 
 class MainActivity : AppCompatActivity() ,
             groups.OnFragmentInteractionListener,
             contacts.OnFragmentInteractionListener
 {
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    fun onBtnClick(view: View){
+        //writeNewUser("1","Isak J", "isak.isak@gmail.com", "hejhej123")
+        //writeNewUser("2","Erik D", "erik.erik@gmail.com", "hejhej123")
+        //writeNewUser("3","Andreas P", "andreas.andreas@gmail.com", "hejhej123")
+        //writeNewUser("4","Example123", "example.example@gmail.com", "hejhej123")
+        readAllUsers()
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +79,6 @@ class MainActivity : AppCompatActivity() ,
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
-
     /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
