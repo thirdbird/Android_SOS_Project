@@ -1,4 +1,4 @@
-package com.example.sosapplication.ui.slideshow
+package com.example.sosapplication.ui.logout
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.sosapplication.R
 
-class SlideshowFragment : Fragment() {
+class LogoutFragment : Fragment() {
 
-    private lateinit var slideshowViewModel: SlideshowViewModel
+    private lateinit var logoutViewModel: LogoutViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        slideshowViewModel =
-            ViewModelProviders.of(this).get(SlideshowViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        slideshowViewModel.text.observe(this, Observer {
+        logoutViewModel =
+            ViewModelProviders.of(this).get(LogoutViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_logout, container, false)
+        val textView: TextView = root.findViewById(R.id.text_gallery)
+        logoutViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root

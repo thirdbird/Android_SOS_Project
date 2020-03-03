@@ -12,42 +12,21 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.sosapplication.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_contacts"
+        android:name="com.example.sosapplication.contacts"
+        android:label="@string/menu_contacts"
+        tools:layout="@layout/fragment_contacts" />
 
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.sosapplication.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.example.sosapplication.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
-
-    <fragment
-        android:id="@+id/nav_share"
-        android:name="com.example.sosapplication.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="com.example.sosapplication.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
     <fragment
         android:id="@+id/nav_groups"
         android:name="com.example.sosapplication.groups"
-        android:label="fragment_groups"
+        android:label="@string/menu_groups"
         tools:layout="@layout/fragment_groups" />
+
     <fragment
-        android:id="@+id/nav_contacts"
-        android:name="com.example.sosapplication.contacts"
-        android:label="fragment_contacts"
-        tools:layout="@layout/fragment_contacts" />
+        android:id="@+id/nav_logout"
+        android:name="com.example.sosapplication.ui.logout.LogoutFragment"
+        android:label="@string/menu_logout"
+        tools:layout="@layout/fragment_logout" />
+
 </navigation>
