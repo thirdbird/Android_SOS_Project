@@ -1,5 +1,6 @@
 package com.example.sosapplication
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,6 +31,7 @@ import android.util.Log
 import android.widget.*
 import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentActivity
+import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivity : AppCompatActivity() ,
@@ -37,6 +39,8 @@ class MainActivity : AppCompatActivity() ,
             contacts.OnFragmentInteractionListener
 {
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onFragmentInteraction(uri: Uri) {
 
@@ -47,6 +51,11 @@ class MainActivity : AppCompatActivity() ,
         //writeNewUser("Erik D", "erik.erik@gmail.com", "hejhej123", false)
         //writeNewUser("Andreas P", "andreas.andreas@gmail.com", "hejhej123", false)
         //writeNewUser("Example123", "example.example@gmail.com", "hejhej123", false)
+        auth = FirebaseAuth.getInstance()
+
+        auth.signOut()
+        startActivity(Intent(this,LoginActivity::class.java))
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
