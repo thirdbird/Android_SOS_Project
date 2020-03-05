@@ -46,6 +46,7 @@ class contacts : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        readAllUsers()
         return inflater.inflate(R.layout.fragment_contacts, container, false)
     }
 

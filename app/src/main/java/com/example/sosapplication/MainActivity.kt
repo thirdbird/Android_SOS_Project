@@ -43,12 +43,11 @@ class MainActivity : AppCompatActivity() ,
     }
 
     fun onBtnClick(view: View){
-        //writeNewUser("1","Isak J", "isak.isak@gmail.com", "hejhej123")
-        //writeNewUser("2","Erik D", "erik.erik@gmail.com", "hejhej123")
-        //writeNewUser("3","Andreas P", "andreas.andreas@gmail.com", "hejhej123")
-        //writeNewUser("4","Example123", "example.example@gmail.com", "hejhej123")
+        //writeNewUser("Isak J", "isak.isak@gmail.com", "hejhej123", false)
+        //writeNewUser("Erik D", "erik.erik@gmail.com", "hejhej123", false)
+        //writeNewUser("Andreas P", "andreas.andreas@gmail.com", "hejhej123", false)
+        //writeNewUser("Example123", "example.example@gmail.com", "hejhej123", false)
         readAllUsers()
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

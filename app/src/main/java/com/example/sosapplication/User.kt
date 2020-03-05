@@ -1,42 +1,38 @@
 package com.example.sosapplication
 
 import androidx.annotation.NonNull
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 data class User(
-    var username: String,
-    var email: String,
-    var password: String
+    var Username: String,
+    var Email: String,
+    var Password: String,
+    var Alert: Boolean
 )
 
-private val database = FirebaseDatabase.getInstance().getReference()
+private val database = FirebaseFirestore.getInstance()
 private val users = mutableListOf<String>()
 
-fun writeNewUser(userId: String, name: String, email: String, password: String) {
-    val user = User(name, email, password)
-    database.child("Users").child(userId).setValue(user)
+fun writeNewUser(Username: String, Email: String, Password: String, Alert: Boolean) {
+    val user = User(Username, Email, Password, Alert)
+    database.collection("Users").add(user)
+
 }
 
 
 fun readAllUsers(): MutableList<String> {
-    users.clear()
-    database.child("Users").addValueEventListener(object : ValueEventListener {
-        override fun onCancelled(snapshot: DatabaseError) {
-            println("database Error")
-        }
-
-        override fun onDataChange(snapshot: DataSnapshot) {
-            val children = snapshot!!.children
-
-            children.forEach {
-                println(it.child("username").toString())
-                users.add(it.child("username").getValue().toString())
+    if (users.count() != 0)
+        //users.clear()
+        database.collection("Users")
+            .get()
+            .addOnSuccessListener { result ->
+                for( document in result){
+                    println(document.get("username"))
+                }
             }
-        }
-    })
+    //getAllUsers()
+
     if (users.count() != 0) {
         println("THERE ARE " + users.count() + " MOTHERFUCKING STRINGS IN HERE")
         return users
@@ -46,6 +42,18 @@ fun readAllUsers(): MutableList<String> {
     }
 
 }
+
+fun getAllUsers(){
+    database.collection("Users")
+        .get()
+        .addOnSuccessListener { Users ->
+            for( Username in Users){
+                println("ADDED LIST")
+            }
+        }
+
+}
+
 
 
 
