@@ -1,5 +1,6 @@
 package com.example.sosapplication
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -31,39 +32,54 @@ import android.util.Log
 import android.widget.*
 import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentActivity
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.iid.FirebaseInstanceId
 
 
-class MainActivity : AppCompatActivity() ,
-            groups.OnFragmentInteractionListener,
-            contacts.OnFragmentInteractionListener
-{
+class MainActivity : AppCompatActivity(),
+    groups.OnFragmentInteractionListener,
+    contacts.OnFragmentInteractionListener {
     private lateinit var appBarConfiguration: AppBarConfiguration
-
     private lateinit var auth: FirebaseAuth
+
+    private var database = FirebaseFirestore.getInstance()
+
 
     override fun onFragmentInteraction(uri: Uri) {
 
     }
 
-    fun onBtnClick(view: View){
-        //writeNewUser("Isak J", "isak.isak@gmail.com", "hejhej123", false)
-        //writeNewUser("Erik D", "erik.erik@gmail.com", "hejhej123", false)
-        //writeNewUser("Andreas P", "andreas.andreas@gmail.com", "hejhej123", false)
-        //writeNewUser("Example123", "example.example@gmail.com", "hejhej123", false)
-        auth = FirebaseAuth.getInstance()
 
+    fun onBtnClick(view: View) {
+        auth = FirebaseAuth.getInstance()
         auth.signOut()
-        startActivity(Intent(this,LoginActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    @SuppressLint("StringFormatInvalid")
+    fun onSOSClick(view: View) {
+        var userId = auth.currentUser?.uid.toString()
+        var userRef = database.collection("users").document(userId)
+
+        userRef.get().addOnSuccessListener { document ->
+            var alert = document["alert"]
+            if (alert == true) {
+                userRef.update("alert", false)
+            } else {
+                userRef.update("alert", true)
+
+            }
+        }
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-
+        auth = FirebaseAuth.getInstance()
         setSupportActionBar(toolbar)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -73,9 +89,17 @@ class MainActivity : AppCompatActivity() ,
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
+        if (auth.currentUser != null) {
+
+        }
         var navHead = navView.getHeaderView(0)
-        var nav_head_text = navHead.findViewById<TextView>(R.id.textView)
-        nav_head_text.setText("HEJJE")
+        var navheadEmail = navHead.findViewById<TextView>(R.id.navhead_email)
+        var navheadName = navHead.findViewById<TextView>(R.id.navhead_name)
+        var name = auth.currentUser?.displayName
+        var email = auth.currentUser?.email
+        navheadEmail.setText(email.toString())
+        navheadName.setText(name.toString())
+
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -98,4 +122,5 @@ class MainActivity : AppCompatActivity() ,
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
 }

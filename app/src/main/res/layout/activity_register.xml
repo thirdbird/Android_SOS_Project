@@ -18,6 +18,7 @@
         android:layout_marginTop="96dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/login_email"
+        android:text="thirdbird95@gmail.com"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,9 +31,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/register_username"
+        android:text="AndreasP"
+        app:layout_constraintBottom_toTopOf="@+id/register_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/register_password"
         app:layout_constraintTop_toBottomOf="@+id/register_email" />
 
     <EditText
@@ -44,6 +46,7 @@
         android:layout_marginEnd="24dp"
         android:hint="@string/login_password"
         android:inputType="textPassword"
+        android:text="12345"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_username" />

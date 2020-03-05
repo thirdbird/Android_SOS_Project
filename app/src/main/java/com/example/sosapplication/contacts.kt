@@ -1,6 +1,7 @@
 package com.example.sosapplication
 
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -29,7 +30,6 @@ class contacts : Fragment() {
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
     private lateinit var contactList: MutableList<String>
-
     private lateinit var arrayAdapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,16 +64,16 @@ class contacts : Fragment() {
             android.R.id.text1,
             contactList
         )
-        getAllUsers().addOnSuccessListener {
-            result ->
-            for(document in result)
-                contactList.add(document["username"].toString())
+        getAllUsers().addOnSuccessListener { result ->
+            for (document in result)
+                contactList.add(document["name"].toString())
             arrayAdapter.notifyDataSetChanged()
         }
 
         val listView = view.findViewById<ListView>(R.id.listviewContacts)
         listView.adapter = arrayAdapter
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)

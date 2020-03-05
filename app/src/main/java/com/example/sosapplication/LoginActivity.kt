@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_login.login_email
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +25,12 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        btn_register.setOnClickListener{
-            startActivity(Intent(this,RegisterActivity::class.java))
+        btn_register.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
             finish()
         }
 
-        btn_login.setOnClickListener{
+        btn_login.setOnClickListener {
             performLogin()
         }
     }
@@ -41,44 +41,50 @@ class LoginActivity : AppCompatActivity() {
         updateUI(currentUser)
     }
 
-    private fun performLogin(){
-        if (!Patterns.EMAIL_ADDRESS.matcher(login_email.text.toString()).matches()){
+    private fun performLogin() {
+        if (!Patterns.EMAIL_ADDRESS.matcher(login_email.text.toString()).matches()) {
             login_email.error = getString(R.string.not_valid_email)
             login_email.requestFocus()
             return
         }
 
-        if (login_password.text.toString().isEmpty()){
+        if (login_password.text.toString().isEmpty()) {
             login_password.error = getString(R.string.no_password)
             login_password.requestFocus()
             return
         }
 
         auth.signInWithEmailAndPassword(login_email.text.toString(), login_password.text.toString())
-            .addOnCompleteListener(this) {task ->
-                if (task.isSuccessful){
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
                     val user = auth.currentUser
                     updateUI(user)
                 } else {
-                    Toast.makeText(baseContext, getString(R.string.login_fail),
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        baseContext, getString(R.string.login_fail),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     updateUI(null)
                 }
             }
     }
 
-    private fun updateUI(currentUser: FirebaseUser?){
-        if (currentUser != null){
-            if (currentUser.isEmailVerified){
+    private fun updateUI(currentUser: FirebaseUser?) {
+        if (currentUser != null) {
+            if (currentUser.isEmailVerified) {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                Toast.makeText(baseContext, getString(R.string.login_verify),
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    baseContext, getString(R.string.login_verify),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         } else {
-            Toast.makeText(baseContext, getString(R.string.login_fail),
-                Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                baseContext, getString(R.string.login_fail),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

@@ -18,13 +18,13 @@ private val users = mutableListOf<String>()
 
 fun writeNewUser(Username: String, Email: String, Password: String, Alert: Boolean) {
     val user = User(Username, Email, Password, Alert)
-    database.collection("Users").add(user)
+    database.collection("users").add(user)
 
 }
 
 
 fun getAllUsers(): Task<QuerySnapshot> {
-    return database.collection("Users")
+    return database.collection("users")
         .get()
 }
 

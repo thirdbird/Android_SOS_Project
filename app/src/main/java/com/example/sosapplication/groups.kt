@@ -41,7 +41,7 @@ class groups : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val createButton = getActivity()?.findViewById<Button>(R.id.buttonGroupsCreate)
-        createButton?.setOnClickListener{
+        createButton?.setOnClickListener {
             val intent = Intent(getActivity(), CreateGroupActivity::class.java)
             startActivity(intent)
         }

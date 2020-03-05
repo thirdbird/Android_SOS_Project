@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private var database = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +45,24 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        auth.createUserWithEmailAndPassword(register_username.text.toString(), register_password.text.toString())
+        auth.createUserWithEmailAndPassword(register_email.text.toString(), register_password.text.toString())
             .addOnCompleteListener(this){ task ->
                 if (task.isSuccessful){
                     //sign in success, update UI with signed-in user's information.
                     val user = auth.currentUser
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(register_username.text.toString())
+                        .build()
+                    user?.updateProfile(profileUpdates)
+                    val data = hashMapOf(
+                        "name" to register_username.text.toString(),
+                        "alert" to false
+                    )
+                    database.collection("users").document(user!!.uid).set(data)
                     user?.sendEmailVerification()
                         ?.addOnCompleteListener{task ->
                             if (task.isSuccessful){
+
                                 startActivity(Intent(this,LoginActivity::class.java))
                                 finish()
                             }
@@ -60,5 +73,6 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT).show()
                 }
             }
+
     }
 }

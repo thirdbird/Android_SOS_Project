@@ -37,5 +37,8 @@
     <string name="no_username">Please enter a username</string>
     <string name="no_password">Please enter a password</string>
     <string name="registration_fail">Registration failed</string>
+    <string name="msg_token_fmt">Herro</string>
+    <string name="default_notification_channel_id">default notificantion channel id</string>
+    <string name="fcm_message">this is fcm message</string>
 
 </resources>
