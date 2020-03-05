@@ -73,6 +73,9 @@ class MainActivity : AppCompatActivity() ,
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
+        var navHead = navView.getHeaderView(0)
+        var nav_head_text = navHead.findViewById<TextView>(R.id.textView)
+        nav_head_text.setText("HEJJE")
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
