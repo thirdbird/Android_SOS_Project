@@ -1,8 +1,10 @@
 package com.example.sosapplication
 
 import androidx.annotation.NonNull
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 
 data class User(
     var Username: String,
@@ -21,37 +23,9 @@ fun writeNewUser(Username: String, Email: String, Password: String, Alert: Boole
 }
 
 
-fun readAllUsers(): MutableList<String> {
-    if (users.count() != 0)
-        //users.clear()
-        database.collection("Users")
-            .get()
-            .addOnSuccessListener { result ->
-                for( document in result){
-                    println(document.get("username"))
-                }
-            }
-    //getAllUsers()
-
-    if (users.count() != 0) {
-        println("THERE ARE " + users.count() + " MOTHERFUCKING STRINGS IN HERE")
-        return users
-    } else {
-        println("FAILED TO ADD VALUES")
-        return users
-    }
-
-}
-
-fun getAllUsers(){
-    database.collection("Users")
+fun getAllUsers(): Task<QuerySnapshot> {
+    return database.collection("Users")
         .get()
-        .addOnSuccessListener { Users ->
-            for( Username in Users){
-                println("ADDED LIST")
-            }
-        }
-
 }
 
 

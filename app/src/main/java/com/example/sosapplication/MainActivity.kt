@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() ,
         //writeNewUser("Erik D", "erik.erik@gmail.com", "hejhej123", false)
         //writeNewUser("Andreas P", "andreas.andreas@gmail.com", "hejhej123", false)
         //writeNewUser("Example123", "example.example@gmail.com", "hejhej123", false)
-        readAllUsers()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

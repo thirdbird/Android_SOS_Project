@@ -28,6 +28,7 @@ class contacts : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    private lateinit var contactList: MutableList<String>
 
     private lateinit var arrayAdapter: ArrayAdapter<String>
 
@@ -37,7 +38,7 @@ class contacts : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
+        contactList = mutableListOf()
 
     }
 
@@ -46,7 +47,6 @@ class contacts : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        readAllUsers()
         return inflater.inflate(R.layout.fragment_contacts, container, false)
     }
 
@@ -62,9 +62,15 @@ class contacts : Fragment() {
             context!!,
             android.R.layout.simple_list_item_1,
             android.R.id.text1,
-            readAllUsers()
-            //tempRepository.getAllToDos()
+            contactList
         )
+        getAllUsers().addOnSuccessListener {
+            result ->
+            for(document in result)
+                contactList.add(document["username"].toString())
+            arrayAdapter.notifyDataSetChanged()
+        }
+
         val listView = view.findViewById<ListView>(R.id.listviewContacts)
         listView.adapter = arrayAdapter
     }
