@@ -36,6 +36,8 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 
 class MainActivity : AppCompatActivity(),
@@ -52,10 +54,11 @@ class MainActivity : AppCompatActivity(),
     }
 
 
-    fun onBtnClick(view: View) {
+    fun logoutUser(view: View) {
         auth = FirebaseAuth.getInstance()
         auth.signOut()
         startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     @SuppressLint("StringFormatInvalid")
@@ -72,13 +75,13 @@ class MainActivity : AppCompatActivity(),
 
             }
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+        FirebaseMessaging.getInstance().isAutoInitEnabled = true
         auth = FirebaseAuth.getInstance()
         setSupportActionBar(toolbar)
 
