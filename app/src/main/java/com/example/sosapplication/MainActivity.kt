@@ -20,30 +20,15 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.view.Menu
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
-import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_contacts.*
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DataSnapshot
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Build
 import android.util.Log
 import android.widget.*
-import androidx.annotation.NonNull
 import androidx.core.app.NotificationCompat
-import androidx.fragment.app.FragmentActivity
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.android.synthetic.main.app_bar_main.*
 
 
 class MainActivity : AppCompatActivity(),
@@ -51,11 +36,10 @@ class MainActivity : AppCompatActivity(),
     contacts.OnFragmentInteractionListener {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var auth: FirebaseAuth
-
-    val TAG = "FCM Service"
-
     private var database = FirebaseFirestore.getInstance()
     private lateinit var contactsUID: MutableList<String>
+
+    val TAG = "FCM Service"
 
     override fun onFragmentInteraction(uri: Uri) {
 
@@ -73,26 +57,28 @@ class MainActivity : AppCompatActivity(),
     fun onSOSClick(view: View) {
         var userId = auth.currentUser?.uid.toString()
         var userRef = database.collection("users").document(userId)
-        //database.collection("users").document(userId).update("token",  FirebaseInstanceId.getInstance().getToken())
-
 
         var notificationBuilder = NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
             .setSmallIcon(R.drawable.ic_menu_camera)
-            .setContentTitle("SOS")
-            .setContentText("detta är ett fett sos")
+            .setContentTitle(getString(R.string.notis_sos))
+            .setContentText(getString((R.string.notis_call_for_help)))
             .setAutoCancel(true)
             .setPriority(Notification.PRIORITY_MAX)
             //.setContentIntent(PendingIntent.getActivity(this, 0, Intent(this)))
         var notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        var channel = NotificationChannel(getString(R.string.default_notification_channel_id), "Testname", NotificationManager.IMPORTANCE_HIGH)
-        notificationManager.createNotificationChannel(channel)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                getString(R.string.default_notification_channel_id),
+                getString(R.string.notis_sos_channel),
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
         notificationBuilder.setChannelId(getString(R.string.default_notification_channel_id))
 
         Log.d(TAG, "Notification: " + notificationManager)
         notificationManager.notify(0, notificationBuilder.build())
-
-        //Notification.Builder()
 
 
         database.collection("users").get().addOnSuccessListener { result ->
@@ -119,6 +105,15 @@ class MainActivity : AppCompatActivity(),
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         FirebaseMessaging.getInstance().isAutoInitEnabled = true
         auth = FirebaseAuth.getInstance()
+        var userRef = database.collection("users").document(auth.currentUser?.uid.toString())
+        userRef.get().addOnSuccessListener { document ->
+            var token = document["token"]
+            if (token == null) {
+                userRef.update("token", FirebaseInstanceId.getInstance().getToken())
+            } else {
+                //
+            }
+        }
         setSupportActionBar(toolbar)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)

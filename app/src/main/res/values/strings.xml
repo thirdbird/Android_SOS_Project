@@ -40,5 +40,8 @@
     <string name="msg_token_fmt">Herro</string>
     <string name="default_notification_channel_id">default notificantion channel id</string>
     <string name="fcm_message">this is fcm message</string>
+    <string name="notis_sos">SOS</string>
+    <string name="notis_call_for_help">Call for help!!</string>
+    <string name="notis_sos_channel">SOS channel</string>
 
 </resources>

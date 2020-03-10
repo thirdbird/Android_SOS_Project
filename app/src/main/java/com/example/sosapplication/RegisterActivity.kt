@@ -8,7 +8,6 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -55,17 +54,15 @@ class RegisterActivity : AppCompatActivity() {
                         .setDisplayName(register_username.text.toString())
                         .build()
                     user?.updateProfile(profileUpdates)
-                    FirebaseInstanceId.getInstance()
                     val data = hashMapOf(
                         "name" to register_username.text.toString(),
                         "alert" to false,
-                        "token" to  FirebaseInstanceId.getInstance()
+                        "token" to  null
                     )
                     database.collection("users").document(user!!.uid).set(data)
                     user?.sendEmailVerification()
                         ?.addOnCompleteListener{task ->
                             if (task.isSuccessful){
-
                                 startActivity(Intent(this,LoginActivity::class.java))
                                 finish()
                             }
