@@ -1,6 +1,10 @@
 package com.example.sosapplication
 
 import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -31,6 +35,7 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.Log
 import android.widget.*
 import androidx.annotation.NonNull
+import androidx.core.app.NotificationCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -46,8 +51,10 @@ class MainActivity : AppCompatActivity(),
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var auth: FirebaseAuth
 
-    private var database = FirebaseFirestore.getInstance()
+    val TAG = "FCM Service"
 
+    private var database = FirebaseFirestore.getInstance()
+    private lateinit var contactsUID: MutableList<String>
 
     override fun onFragmentInteraction(uri: Uri) {
 
@@ -65,6 +72,29 @@ class MainActivity : AppCompatActivity(),
     fun onSOSClick(view: View) {
         var userId = auth.currentUser?.uid.toString()
         var userRef = database.collection("users").document(userId)
+        //database.collection("users").document(userId).update("token",  FirebaseInstanceId.getInstance().getToken())
+
+
+        var notificationBuilder = NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
+            .setSmallIcon(R.drawable.ic_menu_camera)
+            .setContentTitle("SOS")
+            .setContentText("detta är ett fett sos")
+            .setAutoCancel(true)
+            //.setContentIntent(PendingIntent.getActivity(this, 0, Intent(this)))
+        var notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        Log.d(TAG, "Notification: " + notificationManager)
+        notificationManager.notify(0, notificationBuilder.build())
+
+        //Notification.Builder()
+
+
+        database.collection("users").get().addOnSuccessListener { result ->
+            for(document in result) {
+                //contactsUID.add(document.id)
+                //Log.d(TAG, "UserUID: " + FirebaseInstanceId.getInstance().getToken())
+            }
+        }
 
         userRef.get().addOnSuccessListener { document ->
             var alert = document["alert"]
