@@ -2,6 +2,7 @@ package com.example.sosapplication
 
 import android.annotation.SuppressLint
 import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -80,8 +81,13 @@ class MainActivity : AppCompatActivity(),
             .setContentTitle("SOS")
             .setContentText("detta är ett fett sos")
             .setAutoCancel(true)
+            .setPriority(Notification.PRIORITY_MAX)
             //.setContentIntent(PendingIntent.getActivity(this, 0, Intent(this)))
         var notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        var channel = NotificationChannel(getString(R.string.default_notification_channel_id), "Testname", NotificationManager.IMPORTANCE_HIGH)
+        notificationManager.createNotificationChannel(channel)
+        notificationBuilder.setChannelId(getString(R.string.default_notification_channel_id))
 
         Log.d(TAG, "Notification: " + notificationManager)
         notificationManager.notify(0, notificationBuilder.build())

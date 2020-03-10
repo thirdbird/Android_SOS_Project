@@ -33,7 +33,7 @@ class SOSnotif : FirebaseMessagingService() {
         Log.d(TAG, "Short lived task is done.")
     }
 
-    private fun sendRegistrationToServer(token: String?) {
+    fun sendRegistrationToServer(token: String?) {
         Log.d(TAG, "sendRegistrationTokenToServer($token)")
     }
 
