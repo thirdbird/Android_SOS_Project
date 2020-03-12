@@ -65,8 +65,9 @@ class contacts : Fragment() {
             contactList
         )
         getAllUsers().addOnSuccessListener { result ->
-            for (document in result)
+            for (document in result) {
                 contactList.add(document["name"].toString())
+            }
             arrayAdapter.notifyDataSetChanged()
         }
 

@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
@@ -41,6 +39,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-firestore:21.4.1'
     implementation 'com.google.firebase:firebase-messaging:20.1.2'
+    implementation "com.cometchat:pro-android-chat-sdk:2.0.3"
+    implementation "com.cometchat:pro-ext-pn:1.0.0"
+    implementation "io.karn:notify:1.3.0"
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     testImplementation 'junit:junit:4.12'

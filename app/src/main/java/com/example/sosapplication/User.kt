@@ -14,14 +14,6 @@ data class User(
 )
 
 private val database = FirebaseFirestore.getInstance()
-private val users = mutableListOf<String>()
-
-fun writeNewUser(Username: String, Email: String, Password: String, Alert: Boolean) {
-    val user = User(Username, Email, Password, Alert)
-    database.collection("users").add(user)
-
-}
-
 
 fun getAllUsers(): Task<QuerySnapshot> {
     return database.collection("users")

@@ -10,11 +10,18 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.cometchat.pro.core.CometChat
+import com.cometchat.pro.exceptions.CometChatException
+import com.cometchat.pro.models.BaseMessage
+import com.cometchat.pro.models.TextMessage
+import com.cometchat.pro.pushnotifications.core.PNExtension
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import io.karn.notify.Notify
+import org.json.JSONObject
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -29,10 +36,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         var userId = auth.currentUser!!.uid
         database.collection("users").document(userId).update("token",  FirebaseInstanceId.getInstance().getToken())
     }
-    //dMOwTpU2Txew7_3VVMoRl1:APA91bECk16D9Hi4N_kVnX79bXPt8Ct-IKklkJi8nwJns_pD_MDU7m31HrZnf_7aF4q0NPsqmsQZR_Yy58syAHYc_7wWopF3VMzUuaTSss-SndFZuYIV9xZQ7DwM4nQDKGiH63TF3S8L
-    //fUui2aiYTXykWnKaqXlZs-:APA91bERRulpch2R7PSaXpNq_ou4gIJnRRLrP-1N_a4OxIfHsWC-30FwmXuoD915nBu0TzFt9OZ0zcr0TQH6yYnDE1tRo64i9_O9sBw6_eucTzlkldOCcMlIaew7bNajwDVtnjbZcDv2
 
     override fun onNewToken(token: String) {
+        super.onNewToken(token)
         Log.d(TAG, "Refreshed token: $token")
         sendRegistrationToServer(token)
     }
@@ -42,6 +48,37 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d(TAG, "From" + remoteMessage!!.from)
         Log.d(TAG, "Notifcation body" + remoteMessage.notification!!)
 
+        PNExtension.getMessageFromJson(JSONObject(remoteMessage.data["message"]),
+            object : CometChat.CallbackListener<BaseMessage>() {
+                override fun onSuccess(baseMessage: BaseMessage?) {
+                    when (baseMessage) {
+                        is TextMessage -> {
+                            // Convert BaseMessage to TextMessage
+                            var textMessage = baseMessage
+                            // Send notification for this text message here
+                            val notificationId = 124952
+                            Notify
+                                .with(this@MyFirebaseMessagingService)
+                                .content { // this: Payload.Content.Default
+                                    title = textMessage.sender.name
+                                    text = textMessage.text
+                                }
+                                .alerting("high_priority_notification") {
+                                    channelImportance = Notify.IMPORTANCE_HIGH
+                                }
+                                .show(notificationId)
+
+                        }
+                    }
+                }
+
+                override fun onError(exception: CometChatException?) {
+                    exception?.printStackTrace()
+                }
+            })
+    }
+
+        /*
         var notificationBuilder = NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
             .setSmallIcon(R.drawable.ic_menu_camera)
             .setContentTitle(getString(R.string.notis_sos))
@@ -122,5 +159,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
     }
+
+     */
 
 }
