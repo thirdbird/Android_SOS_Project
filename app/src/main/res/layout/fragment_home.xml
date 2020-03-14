@@ -37,7 +37,7 @@
     <Button
         android:id="@+id/button"
         android:layout_width="0dp"
-        android:layout_height="520dp"
+        android:layout_height="420dp"
         android:background="@mipmap/ic_sosbutton_inactive_foreground"
         android:onClick="onSOSClick"
         android:text=""

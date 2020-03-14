@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(),
     }
 
 
-    fun logoutUser(view: View) {
+    /*fun logoutUser(view: View) {
         auth = FirebaseAuth.getInstance()
         val topicId =
             getString(R.string.comet_app_id) + "_" + CometChatConstants.RECEIVER_TYPE_USER + "_" + auth.currentUser?.uid
@@ -65,9 +65,9 @@ class MainActivity : AppCompatActivity(),
 
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
-    }
+    }*/
 
-    @SuppressLint("StringFormatInvalid")
+    //@SuppressLint("StringFormatInvalid")
     fun onSOSClick(view: View) {
         var userId = auth.currentUser?.uid.toString()
         var userRef = database.collection("users").document(userId)
@@ -104,8 +104,6 @@ class MainActivity : AppCompatActivity(),
                     })
             }
         }
-
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -149,7 +147,7 @@ class MainActivity : AppCompatActivity(),
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_contacts,
-                R.id.nav_groups, R.id.nav_logout
+                R.id.nav_groups
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
