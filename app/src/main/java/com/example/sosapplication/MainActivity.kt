@@ -1,12 +1,9 @@
 package com.example.sosapplication
 
-import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -26,7 +23,6 @@ import android.util.Log
 import android.widget.*
 import androidx.core.app.NotificationCompat
 import com.cometchat.pro.constants.CometChatConstants
-import com.cometchat.pro.core.AppSettings
 import com.cometchat.pro.core.CometChat
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.TextMessage
@@ -34,10 +30,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
-import com.varunest.sparkbutton.SparkButton
-import com.varunest.sparkbutton.SparkEventListener
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.util.*
 
 
 class MainActivity : AppCompatActivity(),
@@ -48,26 +41,13 @@ class MainActivity : AppCompatActivity(),
     private var database = FirebaseFirestore.getInstance()
     private lateinit var contactsUID: MutableList<String>
 
-    val TAG = "FCM Service"
-    val listenerID: String = "MainActivity"
+    private val TAG = "FCM Service in Main"
+    private val listenerID: String = "MainActivity"
 
     override fun onFragmentInteraction(uri: Uri) {
 
     }
 
-
-    /*fun logoutUser(view: View) {
-        auth = FirebaseAuth.getInstance()
-        val topicId =
-            getString(R.string.comet_app_id) + "_" + CometChatConstants.RECEIVER_TYPE_USER + "_" + auth.currentUser?.uid
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(topicId)
-        auth.signOut()
-
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
-    }*/
-
-    //@SuppressLint("StringFormatInvalid")
     fun onSOSClick(view: View) {
         var userId = auth.currentUser?.uid.toString()
         var userRef = database.collection("users").document(userId)
@@ -83,9 +63,10 @@ class MainActivity : AppCompatActivity(),
 
             } else {
                 button.setBackgroundResource(R.mipmap.ic_sosbutton_active_foreground)
+
                 userRef.update("alert", true)
                 val receiverID: String = "allusers"
-                val messageText: String = "Call emergency services, I'm In trouble,  "
+                val messageText: String = getString(R.string.emergency_service)
                 val receiverType: String = CometChatConstants.RECEIVER_TYPE_GROUP
                 val textMessage = TextMessage(receiverID, messageText, receiverType)
 
@@ -153,25 +134,6 @@ class MainActivity : AppCompatActivity(),
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
-        val appID: String = "150750f6f6d76d9" // Replace with your App Id.
-        val region: String = "eu" // Replace with the region for your App.
-
-        val appSettings =
-            AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(region)
-                .build()
-
-        CometChat.init(this, appID, appSettings, object : CometChat.CallbackListener<String>() {
-            override fun onSuccess(p0: String?) {
-                Log.d(TAG, "Initialization completed successfully")
-            }
-
-            override fun onError(p0: CometChatException?) {
-                Log.d(TAG, "Initialization failed with exception: " + p0?.message)
-            }
-
-        })
-
     }
 
     override fun onResume() {
@@ -187,7 +149,6 @@ class MainActivity : AppCompatActivity(),
                     .setSmallIcon(R.drawable.ic_app_icon)
                     .setContentTitle(getString(R.string.notis_sos))
                     .setContentText(message?.text + message?.sender?.name)
-                    //.setAutoCancel(true)
                     .setPriority(Notification.PRIORITY_MAX)
                 //.setContentIntent(PendingIntent.getActivity(this, 0, Intent(this)))
                 var notificationManager =
@@ -214,7 +175,6 @@ class MainActivity : AppCompatActivity(),
         super.onPause()
         CometChat.removeMessageListener(listenerID)
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)

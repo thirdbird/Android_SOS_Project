@@ -44,5 +44,6 @@
     <string name="notis_call_for_help">Call for help!!</string>
     <string name="notis_sos_channel">SOS channel</string>
     <string name="comet_app_id">150750f6f6d76d9</string>
+    <string name="emergency_service">Call emergency services, I\'m In trouble,</string>
 
 </resources>

@@ -7,7 +7,6 @@ import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import com.cometchat.pro.core.CometChat
-import com.cometchat.pro.core.CometChat.CallbackListener
 import com.cometchat.pro.exceptions.CometChatException
 import com.cometchat.pro.models.User
 import com.google.firebase.auth.FirebaseAuth

@@ -25,6 +25,7 @@ class HomeFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private var database = FirebaseFirestore.getInstance()
 
+
     val TAG = "FCM Service"
 
     companion object {
@@ -45,6 +46,7 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(this, Observer {
             textView.text = it
         })
+
         return root
     }
 
