@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SOSapplication</string>
+    <string name="action_settings">Inställningar</string>
+    <string name="button_contacts_add_new">Lägg till</string>
+    <string name="button_contacts_remove">Ta bort</string>
+    <string name="button_create_group_save">Spara grupp</string>
+    <string name="comet_app_id">150750f6f6d76d9</string>
+    <string name="default_notification_channel_id">default notificantion channel id</string>
+    <string name="emergency_service">"Ring räddningstjänster, Jag är i fara, "</string>
+    <string name="fcm_message">detta är ett fcm meddelande</string>
+    <string name="hello_blank_fragment">Hej blanka fragment</string>
+    <string name="login_email">Epost</string>
+    <string name="login_fail">Inloggning misslykades</string>
+    <string name="login_password">Lösenord</string>
+    <string name="login_register">Registrera</string>
+    <string name="login_sign_in">Logga in</string>
+    <string name="login_verify">Var god bekräfta din epost</string>
+    <string name="menu_contacts">Kontakter</string>
+    <string name="menu_groups">Grupper</string>
+    <string name="menu_home">Hem</string>
+    <string name="menu_logout">Logga ut</string>
+    <string name="msg_token_fmt">Hejhej</string>
+    <string name="new_group_name">Namnge din grupp</string>
+    <string name="no_password">Var god fyll i ett lösenord</string>
+    <string name="no_username">Var god fyll i ett användarnamn</string>
+    <string name="not_valid_email">Var god fyll i ett giltigt epost adress</string>
+    <string name="notis_call_for_help">Ring efter hjälp!!</string>
+    <string name="notis_sos">SOS</string>
+    <string name="notis_sos_channel">SOS kanelen</string>
+    <string name="register_username">Användarnamn</string>
+    <string name="registration_fail">Registrering misslyckades</string>
+</resources>

@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">SOSapplication</string>
-    <string name="title_activity_test">TestActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="title_activity_test" translatable="false">TestActivity</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Android Studio</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <!-- Menu bar icons -->
@@ -13,11 +13,10 @@
     <string name="menu_contacts">Contacts</string>
     <string name="menu_groups">Groups</string>
     <string name="menu_logout">Logout</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
 
     <!-- Greate Grooup Activity -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="button_groups_create_new">Create new</string>
     <string name="button_contacts_add_new">Add new</string>
     <string name="button_contacts_remove">Remove</string>
     <string name="new_group_name">Name your group</string>
@@ -37,6 +36,8 @@
     <string name="no_username">Please enter a username</string>
     <string name="no_password">Please enter a password</string>
     <string name="registration_fail">Registration failed</string>
+
+    <!-- FCM service placeholders -->
     <string name="msg_token_fmt">Herro</string>
     <string name="default_notification_channel_id">default notificantion channel id</string>
     <string name="fcm_message">this is fcm message</string>
@@ -44,6 +45,6 @@
     <string name="notis_call_for_help">Call for help!!</string>
     <string name="notis_sos_channel">SOS channel</string>
     <string name="comet_app_id">150750f6f6d76d9</string>
-    <string name="emergency_service">Call emergency services, I\'m In trouble,</string>
+    <string name="emergency_service">"Call emergency services, I'm In trouble, "</string>
 
 </resources>
