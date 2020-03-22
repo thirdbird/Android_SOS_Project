@@ -46,5 +46,6 @@
     <string name="notis_sos_channel">SOS channel</string>
     <string name="comet_app_id">150750f6f6d76d9</string>
     <string name="emergency_service">"Call emergency services, I'm In trouble, "</string>
+    <string name="create_new_group">Create new group</string>
 
 </resources>

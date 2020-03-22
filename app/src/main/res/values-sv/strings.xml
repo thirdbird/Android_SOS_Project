@@ -30,4 +30,5 @@
     <string name="notis_sos_channel">SOS kanelen</string>
     <string name="register_username">Användarnamn</string>
     <string name="registration_fail">Registrering misslyckades</string>
+    <string name="create_new_group">Skapa ny grupp</string>
 </resources>
